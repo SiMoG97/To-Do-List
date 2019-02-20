@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-const MyForm = styled.div`
+const MyForm = styled.form`
   width:100%;
   display;flex;
   flex-direction: column;
@@ -47,7 +47,11 @@ class AddCard extends Component {
   };
 
   chnageHandle = e => this.setState({ content: e.target.value });
-  submitHandling = () => this.props.addCard(this.state);
+  submitHandling = e => {
+    e.preventDefault();
+    this.props.addCard(this.state);
+    this.setState({ content: "" });
+  };
 
   render() {
     return (
@@ -57,6 +61,7 @@ class AddCard extends Component {
           placeholder="To Do"
           id="content"
           onChange={this.chnageHandle}
+          value={this.state.content}
         />
         <br />
         <Button onClick={this.submitHandling}>Submit</Button>
